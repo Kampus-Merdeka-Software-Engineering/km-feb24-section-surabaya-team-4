@@ -120,6 +120,14 @@ h2 {
     .container {
         flex-direction: column;
     }
+    .box-container {
+        background-color:  #2196F3;
+        display: grid;
+        grid-template-columns:auto ;
+        grid-template-rows: 1fr 1fr  1fr 1fr ; 
+        padding-bottom: 20px;
+        width: 100%;
+    }
     .sidebar {
         width: 100%;
     }
