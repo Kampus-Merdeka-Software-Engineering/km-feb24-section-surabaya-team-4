@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    // Pertama, sertakan library Google Charts di file HTML Anda
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    // Kemudian, buat div di mana grafik akan ditampilkan
+
+   <script type="module">
+    import data from './bquxjob_63d77ed6_18f8214db6c.json' assert { type: 'json' }
+    let hasilFilter = data.filter(item => item.Category === 'Water');
+    let totalPenjualanPerProduk = hasilFilter.reduce((total, item) => {
+    if (!total[item.Location]) {
+        total[item.Location] = 0;
+    }
+    total[item.Location] += parseFloat(item.TransTotal);
+    return total;
+    }, {});
+    // Muat library Google Charts
+    google.charts.load('current', {'packages':['corechart']});
+
+    // Set fungsi untuk menggambar grafik
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+    // Buat array data untuk Google Charts
+    let googleChartData = [['Produk', 'Penjualan']];
+    for (let namaProduk in totalPenjualanPerProduk) {
+        googleChartData.push([namaProduk, totalPenjualanPerProduk[namaProduk]]);
+    }
+
+      // Buat objek data Google
+      let data = google.visualization.arrayToDataTable(googleChartData);
+
+
+      // Set opsi untuk grafik
+      let options = {
+        title: 'Penjualan Produk Berkategori Water'
+      };
+
+      // Buat grafik baru dan gambar di div dengan id 'chart_div'
+      let chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+   </script>
+    
+</head>
+<body>
+    <div id="chart_div"></div>
+</body>
+</html>

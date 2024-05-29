@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="module">
+    import data from './bquxjob_63d77ed6_18f8214db6c.json' assert { type: 'json' }
+    let hasilFilter = data.filter(item => item.Category === 'Water');
+    let totalPenjualanPerProduk = hasilFilter.reduce((total, item) => {
+        if (!total[item.Product]) {
+            total[item.Product] = 0;
+        }
+        total[item.Product] += parseFloat(item.TransTotal);
+        return total;
+    }, {});
+
+    // Urutkan data dari besar ke kecil
+    let sortedProducts = Object.keys(totalPenjualanPerProduk).sort((a, b) => totalPenjualanPerProduk[b] - totalPenjualanPerProduk[a]);
+
+    // Buat array data untuk Google Charts
+    let googleChartData = [['Produk', 'Penjualan']];
+    sortedProducts.forEach(namaProduk => {
+        googleChartData.push([namaProduk, totalPenjualanPerProduk[namaProduk]]);
+    });
+
+    // Muat library Google Charts
+    google.charts.load('current', {'packages':['corechart']});
+
+    // Set fungsi untuk menggambar grafik
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        // Buat objek data Google
+        let data = google.visualization.arrayToDataTable(googleChartData);
+
+        // Set opsi untuk grafik
+        let options = {
+            title: 'Penjualan Produk Berkategori Non Carbonated (Diurutkan dari Besar ke Kecil)',
+            hAxis: {title: 'Produk'},
+            vAxis: {title: 'Penjualan'}
+        };
+
+        // Buat grafik baru dan gambar di div dengan id 'chart_div'
+        let chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+    </script>
+</head>
+<body>
+    <div id="chart_div"></div>
+</body>
+</html>
