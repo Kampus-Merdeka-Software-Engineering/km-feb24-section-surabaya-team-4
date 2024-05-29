@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Sales Chart</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="module">
+    import data from './bquxjob_63d77ed6_18f8214db6c.json' assert { type: 'json' }
+        // Process the data and create the chart
+        let hasilFilter = data.filter(item => item.Category === 'Water');
+        const totalPenjualanPerTokoPerBulan = hasilFilter.reduce((total, item) => {
+            const tahun = item.TransDate.slice(0, 4);
+            const bulan = item.TransDate.slice(5, 7);
+            const waktu = `${tahun}-${bulan}`;
+            const toko = item.Location;
+
+            if (!total[waktu]) {
+                total[waktu] = {};
+            }
+            if (!total[waktu][toko]) {
+                total[waktu][toko] = 0;
+            }
+            total[waktu][toko] += parseFloat(item.TransTotal);
+
+            return total;
+        }, {});
+
+        // Load Google Charts library
+        google.charts.load('current', {'packages':['corechart']});
+
+        // Set function to draw the chart
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            const googleChartData = [['Bulan']];
+            const tokoSet = new Set();
+
+            for (const waktu in totalPenjualanPerTokoPerBulan) {
+                for (const toko in totalPenjualanPerTokoPerBulan[waktu]) {
+                    tokoSet.add(toko);
+                }
+            }
+
+            googleChartData[0].push(...tokoSet);
+
+            const namaBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+            for (let i = 1; i <= 12; i++) {
+                const row = [namaBulan[i - 1]];
+                for (let j = 1; j < googleChartData[0].length; j++) {
+                    const toko = googleChartData[0][j];
+                    const bulan = `2022-${i.toString().padStart(2, '0')}`;
+                    row.push(totalPenjualanPerTokoPerBulan[bulan] && totalPenjualanPerTokoPerBulan[bulan][toko] || 0);
+                }
+                googleChartData.push(row);
+            }
+
+            const data = google.visualization.arrayToDataTable(googleChartData);
+
+            const options = {
+                title: 'Penjualan Produk Berkategori Non Carbonated per Bulan',
+                hAxis: { title: 'Bulan' },
+                vAxis: { title: 'Penjualan' }
+            };
+
+            const chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+<body>
+    <div id="chart_div"></div>
+</body>
+</html>
