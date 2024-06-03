@@ -3,129 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <title>Contoh Halaman Web</title>\
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="module">
-    import data from './bquxjob_63d77ed6_18f8214db6c.json' assert { type: 'json' }
-    // document.addEventListener('DOMContentLoaded', () => { 
-    // let hasilFilter = data.filter(item => item.Category === 'Water');
-    // let totalPenjualanPerProduk = hasilFilter.reduce((total, item) => {
-    //     if (!total[item.Product]) {
-    //         total[item.Product] = 0;
-    //     }
-    //     total[item.Product] += parseFloat(item.TransTotal);
-    //     return total;
-    // }, {});
-
-    // // Urutkan data dari besar ke kecil
-    // let sortedProducts = Object.keys(totalPenjualanPerProduk).sort((a, b) => totalPenjualanPerProduk[b] - totalPenjualanPerProduk[a]);
-
-    // // Buat array data untuk Google Charts
-    // let googleChartData = [['Produk', 'Penjualan']];
-    // sortedProducts.forEach(namaProduk => {
-    //     googleChartData.push([namaProduk, totalPenjualanPerProduk[namaProduk]]);
-    // });
-
-    // // Muat library Google Charts
-    // google.charts.load('current', {'packages':['corechart']});
-
-    // // Set fungsi untuk menggambar grafik
-    // google.charts.setOnLoadCallback(drawChart);
-
-    // function drawChart() {
-    //     // Buat objek data Google
-    //     let data = google.visualization.arrayToDataTable(googleChartData);
-
-    //     // Set opsi untuk grafik
-    //     let options = {
-    //         title: 'Penjualan Produk Berkategori Non Carbonated (Diurutkan dari Besar ke Kecil)',
-    //         hAxis: {title: 'Produk'},
-    //         vAxis: {title: 'Penjualan'}
-    //     };
-
-    //     // Buat grafik baru dan gambar di div dengan id 'chart_div'
-    //     let chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-    //     chart.draw(data, options);
-    // }
-    // });    
-
-    function filterData() {
-        console.log("Test");
-
-            // const quartilSelect = document.getElementById('quartilSelect');
-            // const selectedQuartil = quartilSelect.value;
-
-            // const quartilRanges = {
-            //     'Q1': { start: new Date('2024-01-01'), end: new Date('2024-03-31') },
-            //     'Q2': { start: new Date('2024-04-01'), end: new Date('2024-06-30') },
-            //     'Q3': { start: new Date('2024-07-01'), end: new Date('2024-09-30') },
-            //     'Q4': { start: new Date('2024-10-01'), end: new Date('2024-12-31') }
-            // };
-
-            // const selectedRange = quartilRanges[selectedQuartil];
-            // const startDate = selectedRange.start;
-            // const endDate = selectedRange.end;
-
-            // // Filter data berdasarkan kategori "water"
-            // const filteredData = jsonData.filter(item => {
-            //     const itemDate = new Date(item.date);
-            //     return itemDate >= startDate && itemDate <= endDate && item.category === 'water';
-            // });
-
-            // // Hitung total penjualan per produk
-            // let totalPenjualanPerProduk = filteredData.reduce((total, item) => {
-            //     if (!total[item.Product]) {
-            //         total[item.Product] = 0;
-            //     }
-            //     total[item.Product] += parseFloat(item.TransTotal);
-            //     return total;
-            // }, {});
-
-            // // Urutkan produk berdasarkan total penjualan
-            // let sortedProducts = Object.keys(totalPenjualanPerProduk).sort((a, b) => totalPenjualanPerProduk[b] - totalPenjualanPerProduk[a]);
-
-            // // Buat array data untuk Google Charts
-            // let googleChartData = [['Produk', 'Penjualan']];
-            // sortedProducts.forEach(namaProduk => {
-            //     googleChartData.push([namaProduk, totalPenjualanPerProduk[namaProduk]]);
-            // });
-
-            // // Muat library Google Charts
-            // google.charts.load('current', {'packages':['corechart']});
-
-            // // Set fungsi untuk menggambar grafik
-            // google.charts.setOnLoadCallback(drawChart);
-
-            // function drawChart() {
-            //     // Buat objek data Google
-            //     let data = google.visualization.arrayToDataTable(googleChartData);
-
-            //     // Set opsi untuk grafik
-            //     let options = {
-            //         title: 'Penjualan Produk Berkategori Non Carbonated (Diurutkan dari Besar ke Kecil)',
-            //         hAxis: {title: 'Produk'},
-            //         vAxis: {title: 'Penjualan'}
-            //     };
-
-            //     // Buat grafik baru dan gambar di div dengan id 'chart_div'
-            //     let chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-            //     chart.draw(data, options);
-            // }
-        }
-    </script>
+    <script type="module" src="app.js"></script>
 </head>
 <body>
-    <div id="chart_div"></div>
-    <label for="quartilSelect">Pilih Quartil:</label>
+    <!-- Konten HTML lainnya -->
     <select id="quartilSelect">
-        <option value="Q1">Kuartil 1 (Q1)</option>
-        <option value="Q2">Kuartil 2 (Q2)</option>
-        <option value="Q3">Kuartil 3 (Q3)</option>
-        <option value="Q4">Kuartil 4 (Q3)</option>
-
+        <option  value="">Pilih</option>
+        <option value="Semua">Semua</option>
+        <option value="Q1">Q1</option>
+        <option value="Q2">Q2</option>
+        <option value="Q3">Q3</option>
+        <option value="Q4">Q4</option>
     </select>
-    <button onclick="filterData()">Filter</button>
+    <select id="tipeSelect">
+        <option  value="">Pilih</option>
+        <option value="Semua">Semua</option>
+        <option value="Cash">Cash</option>
+        <option value="Credit">Credit</option>
+    </select>
+    <button id="generateChartButton">Generate Chart</button>
+    <button id="resetChartButton">Reset Chart</button>
 
+    <div id="chart_div"></div>
 </body>
 </html>
