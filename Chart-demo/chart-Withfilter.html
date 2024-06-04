@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contoh Halaman Web</title>\
+    <title>Contoh Halaman Web</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+
     <script type="module" src="app.js"></script>
 </head>
 <body>
@@ -23,9 +25,20 @@
         <option value="Cash">Cash</option>
         <option value="Credit">Credit</option>
     </select>
+    <select id="tipeProduk">
+        <option value="">Pilih Produk</option>
+        <option value="Semua">Semua</option>
+
+    </select>
+
     <button id="generateChartButton">Generate Chart</button>
     <button id="resetChartButton">Reset Chart</button>
 
     <div id="chart_div"></div>
+    <div id="chart_div2"></div>
+
+    <canvas id="chart_divg" width="400" height="200"></canvas>
+    <canvas id="piechart_divg" width="400" height="200"></canvas>
+
 </body>
 </html>
