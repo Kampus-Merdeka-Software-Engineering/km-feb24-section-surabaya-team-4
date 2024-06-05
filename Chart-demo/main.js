@@ -168,6 +168,29 @@ export function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, ex
         return total;
     }, {});
 
+    let totalTransaksiKeseluruhan = 0;
+    filteredData1.forEach(item => {
+      const transTotal = parseFloat(item.RQty);
+      if (!isNaN(transTotal)) {
+        totalTransaksiKeseluruhan += transTotal;
+      }
+    });
+
+    
+    let totalRevenue = 0;
+    filteredData1.forEach(item => {
+      const transTotal = parseFloat(item.LineTotal);
+      if (!isNaN(transTotal)) {
+        totalRevenue += transTotal;
+      }
+    });
+
+    console.log(totalRevenue);
+
+
+    document.getElementById('total_revenue').innerText = `$${totalRevenue.toLocaleString()}`;
+    document.getElementById('total_sales').innerText = `${totalTransaksiKeseluruhan.toLocaleString()}`;
+
     // Ambil semua bulan dan toko yang unik dari filteredLineData
     const bulanSet = new Set();
     const tokoSet = new Set();
@@ -208,6 +231,8 @@ export function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, ex
             resolve({ barChart: newBarChart, pieChart: newPieChart, lineChart: newLineChart });
 
     });
+    
+    
   }
   
 

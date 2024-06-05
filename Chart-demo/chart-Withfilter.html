@@ -6,6 +6,7 @@
     <title>Contoh Halaman Web</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+    <link rel="stylesheet" href="score.css">
 
     <script type="module" src="app.js"></script>
 </head>
@@ -34,13 +35,19 @@
     <button id="generateChartButton">Generate Chart</button>
     <button id="resetChartButton">Reset Chart</button>
 
-    <div id="chart_div"></div>
-    <div id="chart_div2"></div>
 
     <canvas id="chart_divg" width="400" height="200"></canvas>
     <canvas id="piechart_divg" width="400" height="200"></canvas>
     <canvas id="linechart_divg" width="400" height="200"></canvas>
+    <div class="scorecard">
+        <div class="label">Total Sales</div>
+        <div id="total_sales">0</div>
+    </div>
     
+    <div class="scorecard">
+        <div class="label">Total Revenue</div>
+        <div id="total_revenue">$0</div>
+    </div>
 
 </body>
 </html>

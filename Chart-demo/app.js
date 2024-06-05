@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!total[item.Product]) {
             total[item.Product] = 0;
         }
-        let transTotal = parseFloat(item.TransTotal);
+        let transTotal = parseFloat(item.RQty);
         if (!isNaN(transTotal)) {
             total[item.Product] += transTotal;
         }
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!total[item.Location]) {
             total[item.Location] = 0;
         }
-        let transTotal = parseFloat(item.TransTotal);
+        let transTotal = parseFloat(item.LineTotal);
         if (!isNaN(transTotal)) {
             total[item.Location] += transTotal;
         }
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!total[waktu][toko]) {
           total[waktu][toko] = 0;
         }
-        total[waktu][toko] += parseFloat(item.TransTotal);
+        total[waktu][toko] += parseFloat(item.LineTotal);
     
         return total;
       }, {});
@@ -229,6 +229,29 @@ document.addEventListener('DOMContentLoaded', () => {
       lineChart = result.lineChart;
     });
 }
+
+
+    let totalTransaksiKeseluruhan = 0;
+    hasilFilter.forEach(item => {
+      const transTotal = parseFloat(item.RQty);
+      if (!isNaN(transTotal)) {
+        totalTransaksiKeseluruhan += transTotal;
+      }
+    });
+
+    
+    let totalRevenue = 0;
+    hasilFilter.forEach(item => {
+      const transTotal = parseFloat(item.LineTotal);
+      if (!isNaN(transTotal)) {
+        totalRevenue += transTotal;
+      }
+    });
+
+
+    document.getElementById('total_revenue').innerText = `$${totalRevenue.toLocaleString()}`;
+    document.getElementById('total_sales').innerText = `${totalTransaksiKeseluruhan.toLocaleString()}`;
+
     // Panggil fungsi saat halaman dimuat
     const greetButton = document.getElementById('generateChartButton');
     greetButton.addEventListener('click', applyFilter);

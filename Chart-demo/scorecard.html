@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scorecard for Total Revenue</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(calculateTotalRevenue);
+
+      function calculateTotalRevenue() {
+        // Data for the revenue
+        var data = google.visualization.arrayToDataTable([
+          ['Month', 'Revenue'],
+          ['January',  1000],
+          ['February',  1170],
+          ['March',  660],
+          ['April',  1030]
+        ]);
+
+        // Calculate total revenue
+        var totalRevenue = 0;
+        for (var i = 0; i < data.getNumberOfRows(); i++) {
+          totalRevenue += data.getValue(i, 1);
+        }
+
+        // Display total revenue
+        document.getElementById('total_revenue').innerText = `$${totalRevenue.toLocaleString()}`;
+      }
+    </script>
+    <style>
+      .scorecard {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .label {
+        font-size: 18px;
+      }
+    </style>
+</head>
+<body>
+    <div class="scorecard">
+        <div class="label">Total Revenue</div>
+        <div id="total_revenue">$0</div>
+    </div>
+</body>
+</html>
