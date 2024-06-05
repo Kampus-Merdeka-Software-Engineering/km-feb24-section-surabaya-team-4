@@ -3,60 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <title>Kelompok 4</title>
 </head>
 <body>
-    
-    <!-- <nav>
-        <ul class="container-menu">
-            <li>Menu1</li>
-            <li>Menu2</li>
-            <li>Menu3</li>
-            <li>Menu4</li>
-            <li>Menu5</li>
-        </ul>
-    </nav>       -->
-    <div class="container">
-   
-        <aside class="sidebar">
-            <!-- Isi sidebar disini -->
-            <h1>SURABAYA </h1>
-            <h2>GROUP 4 </h2>
-        </aside>
-        <div class="main-content">
-
-            <div class="container0">
-                <!-- Konten 0 berupa nama judul-->
-                <h1 class="judul">VENDING MECHINCE SALES</h1>
-            </div>
-
-            <div class="box-content">
-                <div class="box1">p</div>
-                <div class="box2">p</div>
-                <div class="box3">p</div>
-            </div>
-            <div class="box-container">
-                <div class="container1">
-
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt magnam veniam, commodi mollitia </p>
-                </div>
-                <div class="container2">
-    
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt magnam veniam, commodi mollitia </p>
-                </div>
-                <div class="container3">
-    
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt magnam veniam, commodi mollitia </p>
-                </div>
-                <div class="container4">
-     
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt magnam veniam, commodi mollitia </p>
-                </div>
-            </div>
-
+    <header>
+        <div>
+            <h1 class="judul">VENDING MACHINE SALES</h1>
         </div>
-    </div>
+        <div class="navbar">
+            <a href="#" id="dashboard-link">Dashboard</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Member Team</a>
+                <div class="dropdown-content" id="member-dropdown">
+                    <a href="#" class="member-link" data-member="member1">Member 1</a>
+                    <a href="#" class="member-link" data-member="member2">Member 2</a>
+                    <a href="#" class="member-link" data-member="member3">Member 3</a>
+                </div>
+            </div>
+            <a href="#" id="contact-link">Contact</a>
+        </div>
+    </header>
+    <main class="main-content">
+        <aside class="sidebar">
+            <h2>SURABAYA GROUP 4</h2>
+            <div class="as-member">
+                <label for="team-dropdown">Choose a team member:</label>
+                <select id="team-dropdown">
+                    <option value="all">All Members</option>
+                    <option value="member1">Member 1</option>
+                    <option value="member2">Member 2</option>
+                    <option value="member3">Member 3</option>
+                </select>
+            </div>
+
+        </aside>
+        <section class="box-content-container">
+            <div class="sort-controls">
+                <label for="sort-dropdown">Sort by:</label>
+                <select id="sort-dropdown">
+                    <option value="default">Default</option>
+                    <option value="content">Content</option>
+                    <option value="category">Category</option>
+                </select>
+            </div>
+            <div class="box-content">
+                <div class="box1">Box 1</div>
+                <div class="box2">Box 2</div>
+                <div class="box3">Box 3</div>
+            </div>
+            <div class="box-container" id="box-container">
+                <div class="container1" data-category="member1">Content 1</div>
+                <div class="container2" data-category="member2">Content 2</div>
+                <div class="container3" data-category="member3">Content 3</div>
+                <div class="container4" data-category="member1">Content 4</div>
+                <div class="container5" data-category="member2">Content 5</div>
+                <div class="container6" data-category="member3">Content 6</div>
+            </div>
+            <div id="submitted-messages">
+                <h2>Comments :</h2>
+                <ul id="messages-list"></ul>
+            </div>
+            <div class="form">
+                <form id="user-form" action="/submit-form" method="post">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required><br><br>
+    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required><br><br>
+    
+                    <label for="message">Enter your message:</label><br>
+                    <textarea id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+    
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            
+        </section>
+        <section >
+
+        </section>
+    </main> 
+    <footer>
+        <p>2024  © Team 4 - Section Surabaya - Revou </p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
