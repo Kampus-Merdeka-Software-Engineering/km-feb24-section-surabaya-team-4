@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+    <link rel="stylesheet" href="score.css">
+    <script type="module" src="app.js"></script>
+
     <title>Kelompok 4</title>
 </head>
 <body>
@@ -29,6 +34,11 @@
             <div class="container0">
                 <!-- Konten 0 berupa nama judul-->
                 <h1 class="judul">VENDING MECHINCE SALES</h1>
+                <select id="tipeProduk">
+                    <option value="">Pilih Produk</option>
+                    <option value="Semua">Semua</option>
+            
+                </select>
             </div>
 
             <div class="box-content">
@@ -42,8 +52,7 @@
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt magnam veniam, commodi mollitia </p>
                 </div>
                 <div class="container2">
-    
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt magnam veniam, commodi mollitia </p>
+                    <canvas id="chart_divg" width="400" height="200"></canvas>
                 </div>
                 <div class="container3">
     

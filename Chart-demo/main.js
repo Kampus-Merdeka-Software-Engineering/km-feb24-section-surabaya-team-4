@@ -1,4 +1,4 @@
-export function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, existingPieChart, ctxLine, existingLineChart) {
+export function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, existingPieChart, ctxLine, existingLineChart, ctxTipe, existingpieChartTipe ) {
     return new Promise((resolve, reject) => {
       const quartilSelect = document.getElementById('quartilSelect');
       const tipeSelect = document.getElementById('tipeSelect');
@@ -15,6 +15,9 @@ export function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, ex
       }
       if (existingLineChart) {
         existingLineChart.destroy();
+    }
+      if (existingpieChartTipe) {
+        existingpieChartTipe.destroy();
     }
   
       const selectedQuartil = quartilSelect.value;
@@ -34,7 +37,7 @@ export function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, ex
         return (
           (selectedQuartil === 'Semua' || (itemDate >= startDate && itemDate <= endDate)) &&
           (selectedTipe === 'Semua' || item.Type === selectedTipe) &&
-          (selectedProduk === 'Semua' || item.Product === selectedProduk)
+          (selectedProduk === 'Semua' || item.Location === selectedProduk)
         );
       });
   
@@ -63,71 +66,105 @@ export function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, ex
     //     return;
     //   }
   
-      const totalPenjualanPerProduk = {};
-      const totalPenjualanPerLokasi = {};
-  
-      filteredData1.forEach(item => {
-        const product = item.Product;
-        const location = item.Location;
-        const transTotal = parseFloat(item.TransTotal);
-  
-        if (!isNaN(transTotal)) {
-          totalPenjualanPerProduk[product] = (totalPenjualanPerProduk[product] || 0) + transTotal;
-          totalPenjualanPerLokasi[location] = (totalPenjualanPerLokasi[location] || 0) + transTotal;
+    const totalPenjualanPerProdukDanHarga = {};
+    const totalPenjualanPerLokasi = {};
+    
+    filteredData1.forEach(item => {
+      const product = item.Product;
+      const price = item.RPrice;
+      const location = item.Location;
+      const transTotal = parseFloat(item.RQty);
+    
+      if (!isNaN(transTotal)) {
+        if (!totalPenjualanPerProdukDanHarga[product]) {
+          totalPenjualanPerProdukDanHarga[product] = {};
         }
-      });
-  
-      const sortedProducts = Object.keys(totalPenjualanPerProduk).sort(
-        (a, b) => totalPenjualanPerProduk[b] - totalPenjualanPerProduk[a]
-      );
-  
-      const barChartData = {
-        labels: sortedProducts,
-        datasets: [{
-          label: 'Penjualan',
-          data: sortedProducts.map(product => totalPenjualanPerProduk[product]),
-          backgroundColor: 'rgba(54, 162, 235, 0.5)',
-          borderColor: 'rgba(54, 162, 235, 1)',
-          borderWidth: 1
-        }]
-      };
-  
-      const pieChartData = {
-        labels: Object.keys(totalPenjualanPerLokasi),
-        datasets: [{
-          data: Object.values(totalPenjualanPerLokasi),
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            // ... (tambahkan warna lain sesuai kebutuhan)
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            // ... (tambahkan warna lain sesuai kebutuhan)
-          ],
-          borderWidth: 1
-        }]
-      };
-  
-      const barChartOptions = {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true
+        totalPenjualanPerProdukDanHarga[product][price] = (totalPenjualanPerProdukDanHarga[product][price] || 0) + transTotal;
+        totalPenjualanPerLokasi[location] = (totalPenjualanPerLokasi[location] || 0) + parseFloat(item.LineTotal);
+      }
+    });
+    
+    let sortedData = Object.entries(totalPenjualanPerProdukDanHarga)
+      .flatMap(([product, prices]) =>
+        Object.entries(prices).map(([price, qty]) => ({
+          label: `${product} (Rp ${price})`,
+          value: qty
+        }))
+      )
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 8); // Ambil 8 teratas
+    
+    let barChartData = {
+      labels: sortedData.map(item => item.label),
+      datasets: [{
+        label: 'Total Penjualan',
+        data: sortedData.map(item => item.value),
+        backgroundColor: sortedData.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.5)`),
+        borderColor: sortedData.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`),
+        borderWidth: 1
+      }]
+    };
+    
+    let pieChartData = {
+      labels: Object.keys(totalPenjualanPerLokasi),
+      datasets: [{
+        data: Object.values(totalPenjualanPerLokasi),
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          // tambahkan warna lain sesuai kebutuhan
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          // tambahkan warna lain sesuai kebutuhan
+        ],
+        borderWidth: 1
+      }]
+    };
+    
+    let newBarChart = new Chart(ctxBar, {
+      type: 'bar',
+      data: barChartData,
+      options: {
+        indexAxis: 'y', // Mengubah orientasi menjadi horizontal
+        plugins: {
+          legend: {
+            display: true,
+            labels: {
+              generateLabels: function(chart) {
+                return chart.data.labels.map(function(label, index) {
+                  return {
+                    text: label, // Gunakan label dari data
+                    fillStyle: chart.data.datasets[0].backgroundColor[index],
+                    strokeStyle: chart.data.datasets[0].borderColor[index],
+                    lineWidth: chart.data.datasets[0].borderWidth
+                  };
+                });
+              }
+            }
           }
         },
-        plugins: {
-          title: {
-            display: true,
-            text: 'Penjualan Produk Berkategori Water (Diurutkan dari Besar ke Kecil)'
+        scales: {
+          x: {
+            beginAtZero: true
           }
         }
-      };
-  
-      const pieChartOptions = {
+      }
+    });
+    
+    let newPieChart = new Chart(ctxPie, {
+      type: 'pie',
+      data: pieChartData,
+      options: {
         responsive: true,
         plugins: {
           title: {
@@ -135,19 +172,8 @@ export function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, ex
             text: 'Total Penjualan per Lokasi (Kategori Water)'
           }
         }
-      };
-  
-      const newBarChart = new Chart(ctxBar, {
-        type: 'bar',
-        data: barChartData,
-        options: barChartOptions
-      });
-  
-      const newPieChart = new Chart(ctxPie, {
-        type: 'pie',
-        data: pieChartData,
-        options: pieChartOptions
-      });
+      }
+    });
       const namaBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
    
       // Update data untuk line chart
@@ -227,8 +253,50 @@ export function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, ex
             // ... (opsi line chart lainnya) ...
         },
         });
+      
+      
+    let uniqueTransactionsPerPaymentType = new Map();
 
-            resolve({ barChart: newBarChart, pieChart: newPieChart, lineChart: newLineChart });
+    filteredData1.forEach((transaksi) => {
+      if (!uniqueTransactionsPerPaymentType.has(transaksi.Type)) {
+        uniqueTransactionsPerPaymentType.set(transaksi.Type, new Set());
+      }
+      uniqueTransactionsPerPaymentType.get(transaksi.Type).add(transaksi.Transaction);
+    });
+    
+    let pieChartTipeData = {
+      labels: Array.from(uniqueTransactionsPerPaymentType.keys()),
+      datasets: [{
+        data: Array.from(uniqueTransactionsPerPaymentType.values(), set => set.size),
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          // tambahkan warna lain sesuai kebutuhan
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          // tambahkan warna lain sesuai kebutuhan
+        ],
+        borderWidth: 1
+      }]
+    };
+    
+    let newPieChartTipe = new Chart(ctxTipe, {
+      type: 'pie',
+      data: pieChartTipeData,
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Jumlah ID Transaksi Unik per Tipe Pembayaran'
+          }
+        }
+      }
+    });
+
+            resolve({ barChart: newBarChart, pieChart: newPieChart, lineChart: newLineChart, pieChartTipe:  newPieChartTipe});
 
     });
     
