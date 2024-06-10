@@ -39,19 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
    let ctxTipe = canvasTipe.getContext('2d');
 
 
-   if (!canvasBar || !canvasPie) {
-       console.error('Canvas elemenctts not found.');
-       return;
-   }
+
 
    // Ensure the contexts are valid
    let ctxBar = canvasBar.getContext('2d');
    let ctxPie = canvasPie.getContext('2d');
 
-   if (!ctxBar || !ctxPie) {
-       console.error('Failed to get canvas context.');
-       return;
-   }
+   
 
    const combobox = document.getElementById('tipeProduk');
    const uniqueNames = new Set();
@@ -454,7 +448,6 @@ function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, existingP
       );
     });
 
-    console.log("Filtered Data:", filteredData1);
 
  
 
@@ -603,7 +596,6 @@ function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, existingP
     }
   });
 
-  console.log(totalRevenue);
 
 
   document.getElementById('total_revenue').innerText = `$${totalRevenue.toLocaleString()}`;
