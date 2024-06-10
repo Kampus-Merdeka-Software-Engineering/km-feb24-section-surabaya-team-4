@@ -19,6 +19,7 @@
                 <img class="logo" src="revou-removebg-preview.png" alt="Logo Revou">
                 <h1 class="judul">VENDING MACHINE SALES</h1>
             </div>
+            
         </div>
 
     </header>
@@ -26,13 +27,13 @@
         <aside class="sidebar">
 
             <div class="box-aside">
-                <div class="box-aside1">Total Sales
+                <div class="box-aside1">Total Penjualan
                         <div id="total_sales">0</div>
                 </div>
-                <div class="box-aside2"> Total Revenue
+                <div class="box-aside2"> Total Pendapatan
                     <div id="total_revenue">$0</div>
                 </div>
-                <div class="box-aside3">Payment Gateway
+                <div class="box-aside3">Metode Pembayaran
                     <canvas id="pieTipe_divg" width="400" height="200" style="position: relative; height:40vh; width:80vw; margin :auto;"></canvas>
 
                 </div>
@@ -41,9 +42,9 @@
         </aside>
         <section class="box-content-container">
             <div class="sort-controls">
-                <label>Sort:</label>
+                <label>Filter:</label>
                 <select id="quartilSelect">
-                    <option  value="">Pilih</option>
+                    <option  value="">Pilih Periode</option>
                     <option value="Semua">Semua</option>
                     <option value="Q1">Q1</option>
                     <option value="Q2">Q2</option>
@@ -51,7 +52,7 @@
                     <option value="Q4">Q4</option>
                 </select>
                 <select id="tipeSelect">
-                    <option  value="">Pilih</option>
+                    <option  value="">Pilih Metode</option>
                     <option value="Semua">Semua</option>
                     <option value="Cash">Cash</option>
                     <option value="Credit">Credit</option>
@@ -61,7 +62,7 @@
                     <option value="Semua">Semua</option>
                 </select>
 
-                <button id="generateChartButton">Generate Chart</button>
+                <button id="generateChartButton">Generate</button>
             </div>
 
             <div class="box-container" id="box-container">
@@ -98,7 +99,7 @@
                 </thead>
                 <tbody></tbody>
             </table>
-        </section>
+
 
     </main> 
     <footer>

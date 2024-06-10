@@ -111,6 +111,7 @@ header {
     flex-direction: column;
     gap: 20px;
     padding: 20px;
+    width: 40%;
 }
 
 .box-content {
@@ -139,13 +140,7 @@ header {
     padding: 4% 2%;
     box-shadow: 3px 3px 4px 0px rgba(194, 191, 191, 0.75);
 }
-/* .container2 , .container3 {
-    background-color: #FFE3CA;
-    padding: 2% 0;
-    height: 400px;
-    width: 100%;
-    box-shadow: 3px 3px 4px 0px rgba(194, 191, 191, 0.75);
-} */
+
  .container2 {
     background-color: #FFE3CA;
     padding: 2% 0;
@@ -159,6 +154,13 @@ header {
     height: 290px;
     width: 100%;
     box-shadow: 3px 3px 4px 0px rgba(194, 191, 191, 0.75);
+}
+
+table.dataTable tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+table.dataTable tbody tr:nth-child(even) {
+    background-color: #ffffff;
 }
 .sort-controls {
     margin-bottom: 20px;
@@ -243,6 +245,9 @@ footer {
         flex-direction: column;
     }
 
+    .box-content-container {
+        width: 90%;
+    }
     .container1 {
         margin: 20px 0;
         background-color: #FFE3CA;
@@ -257,10 +262,9 @@ footer {
         height: 250px;
         width: 100%;
         max-width: 100%;
-    }
-    canvas {
-        height: 200px;
-        width: 100%;
+    } 
+    #salesTable {
+        font-size: small;
     }
 }
 
