@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             title: {
                 display: true,
-                text: 'Total penjualan per produk dan harga' // Ganti dengan judul chart yang diinginkan
+                text: 'Sales by product' // Ganti dengan judul chart yang diinginkan
             }
         },
         scales: {
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
            plugins: {
                title: {
                    display: true,
-                   text: 'Total Penjualan per Lokasi (Kategori Water)'
+                   text: 'Sales by location'
                }
            }
        }
@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
          plugins: {
            title: {
              display: true,
-             text: 'Total Penjualan per Lokasi per Bulan (Kategori Water)',
+             text: 'Total sales by periode',
            },
          },
        },
@@ -339,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
        plugins: {
          title: {
            display: true,
-           text: 'Jumlah ID Transaksi Unik per Tipe Pembayaran'
+           text: 'Total transaction by tipe'
          }
        }
      }
@@ -561,7 +561,7 @@ function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, existingP
       plugins: {
         title: {
           display: true,
-          text: 'Total Penjualan per Lokasi (Kategori Water)'
+          text: 'Sales by location'
         }
       }
     }
@@ -682,7 +682,7 @@ function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, existingP
       plugins: {
         title: {
           display: true,
-          text: 'Jumlah ID Transaksi Unik per Tipe Pembayaran'
+          text: 'Total transaction by tipe'
         }
       }
     }
