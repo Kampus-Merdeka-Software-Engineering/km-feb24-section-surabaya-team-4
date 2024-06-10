@@ -545,31 +545,36 @@ function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, existingP
     type: 'bar',
     data: barChartData,
     options: {
-      indexAxis: 'y', // Mengubah orientasi menjadi horizontal
-      plugins: {
-        legend: {
-          display: true,
-          labels: {
-            generateLabels: function(chart) {
-              return chart.data.labels.map(function(label, index) {
-                return {
-                  text: label, // Gunakan label dari data
-                  fillStyle: chart.data.datasets[0].backgroundColor[index],
-                  strokeStyle: chart.data.datasets[0].borderColor[index],
-                  lineWidth: chart.data.datasets[0].borderWidth
-                };
-              });
+        indexAxis: 'y', // Mengubah orientasi menjadi horizontal
+        plugins: {
+            legend: {
+                display: true,
+                labels: {
+                    generateLabels: function(chart) {
+                        return chart.data.labels.map(function(label, index) {
+                            return {
+                                text: label, // Gunakan label dari data
+                                fillStyle: chart.data.datasets[0].backgroundColor[index],
+                                strokeStyle: chart.data.datasets[0].borderColor[index],
+                                lineWidth: chart.data.datasets[0].borderWidth
+                            };
+                        });
+                    }
+                }
+            },
+            title: {
+                display: true,
+                text: 'Sales by product and price' // Ganti dengan judul yang diinginkan
             }
-          }
+        },
+        scales: {
+            x: {
+                beginAtZero: true
+            }
         }
-      },
-      scales: {
-        x: {
-          beginAtZero: true
-        }
-      }
     }
-  });
+});
+
   
   let newPieChart = new Chart(ctxPie, {
     type: 'pie',
@@ -659,7 +664,13 @@ function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, existingP
           })),
       },
       options: {
-          // ... (opsi line chart lainnya) ...
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Total sales by period'
+          }
+        }
       },
       });
     
