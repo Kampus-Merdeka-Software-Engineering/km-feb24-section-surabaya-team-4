@@ -2,6 +2,7 @@ import jsonData from './data.json' assert { type: 'json' };
 
 document.addEventListener('DOMContentLoaded', () => {
   let hasilFilter = jsonData.filter(item => item.Category === 'Water');
+  
 
 
     $('#salesTable').DataTable({
@@ -412,7 +413,32 @@ function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, existingP
     const combobox = document.getElementById('tipeProduk');
     const selectedProduk = combobox.value;
     const selectedTipe = tipeSelect.value;
+    const selectedQuartil = quartilSelect.value;
 
+    const modal = document.getElementById("filterModal");
+        const span = document.getElementsByClassName("close")[0];
+
+        // Check if filters are selected
+        if (selectedProduk === "Pilih Lokasi" || selectedTipe === "Pilih Metode" || selectedQuartil === "Pilih Periode") {
+            // Show modal
+            modal.style.display = "block";
+
+            // Close the modal when the user clicks on <span> (x)
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // Close the modal when the user clicks anywhere outside of the modal
+            window.onclick = function(event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            // Reject the promise as filters are not selected
+            reject('Filter belum dipilih');
+        } else{
+          
     // Hancurkan grafik yang ada jika ada
     if (existingBarChart) {
       existingBarChart.destroy();
@@ -427,7 +453,6 @@ function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, existingP
       existingpieChartTipe.destroy();
   }
 
-    const selectedQuartil = quartilSelect.value;
     const quartilRanges = {
       'Q1': { start: new Date('2022-01-01'), end: new Date('2022-03-31') },
       'Q2': { start: new Date('2022-04-01'), end: new Date('2022-06-30') },
@@ -681,7 +706,7 @@ function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, existingP
   });
 
           resolve({ barChart: newBarChart, pieChart: newPieChart, lineChart: newLineChart, pieChartTipe:  newPieChartTipe});
-
+        }
   });
   
   
