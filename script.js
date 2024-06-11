@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
        plugins: {
          title: {
            display: true,
-           text: 'Total transaction by tipe'
+           text: 'Total transaction by payment type'
          }
        }
      }
@@ -710,7 +710,7 @@ function generateChart(ctxBar, ctxPie, filteredData, existingBarChart, existingP
       plugins: {
         title: {
           display: true,
-          text: 'Total transaction by tipe'
+          text: 'Total transaction by payment type'
         }
       }
     }
